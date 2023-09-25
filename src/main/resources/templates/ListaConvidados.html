@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width" />
+	<title>Lista de Convidados</title>
+	<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+		rel="stylesheet"/>
+	<link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}"
+		rel="stylesheet"/>
+</head>
+<body>
+	<div class="panel panel-default" style="margin: 10px">
+		<div class="panel-heading">
+			<h1 class="panel-title">Lista de convidados</h1>
+		</div>
+		<div class="panel-body">		
+			<!-- Veja que "th:object" está pegando o Convidado que foi adicionado lá no controller.
+			 E tb veja que mais abaixo que "th:field" pega um campo desse mesmo objeto Convidado.
+			 Já "th:action" informa para qual endereço devem ser enviados os dados desse formulario, tb é para o objeto convidado.-->
+			<form class="form-inline" method="POST" th:object="${convidado}" style="margin: 20px 0" th:action="@{/convidados}">
+				<div class="form-group">
+					<input type="text" class="form-control"
+						placeholder="Nome"						
+						th:field="*{nome}"/>
+					<input type="text" class="form-control"
+						placeholder="Acompanhantes"
+						th:field="*{quantidade_acompanhantes}"/>
+					<button type="submit"
+						class="btn btn-primary">Adicionar</button>
+				</div>
+			</form>		
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Acompanhantes</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="convidado : ${convidados}">
+						<td th:text="${convidado.nome}"></td>	
+						<td th:text="${convidado.quantidade_acompanhantes}"></td>					
+					</tr>					
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<h6>V:200422.1515</h6>
+	
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
